@@ -1,0 +1,73 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: cd-pipeline
+spec:
+  params:
+    - name: repo-url
+      type: string
+    - name: branch
+      type: string
+      default: main
+    - name: image-name
+      type: string
+  workspaces:
+    - name: pipeline-workspace
+  tasks:
+    - name: clone
+      taskRef:
+        name: git-clone
+        kind: ClusterTask
+      workspaces:
+        - name: output
+          workspace: pipeline-workspace
+      params:
+        - name: url
+          value: $(params.repo-url)
+        - name: revision
+          value: $(params.branch)
+
+    - name: lint
+      taskRef:
+        name: flake8
+        kind: Task
+      workspaces:
+        - name: source
+          workspace: pipeline-workspace
+      runAfter:
+        - clone
+
+    - name: tests
+      taskRef:
+        name: nose
+        kind: Task
+      workspaces:
+        - name: source
+          workspace: pipeline-workspace
+      runAfter:
+        - lint
+
+    - name: build-push
+      taskRef:
+        name: buildah
+        kind: ClusterTask
+      workspaces:
+        - name: source
+          workspace: pipeline-workspace
+      params:
+        - name: IMAGE
+          value: $(params.image-name)
+      runAfter:
+        - tests
+
+    - name: deploy
+      taskRef:
+        name: kubernetes-actions
+        kind: Task
+      params:
+        - name: script
+          value: |
+            kubectl apply -f k8s/deployment.yaml
+            kubectl rollout status deployment/accounts
+      runAfter:
+        - build-push

@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+*.pyo
+.coverage
+.coverage_html/
+*.db
+.env
+venv/
+.venv/
