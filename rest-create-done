@@ -1,0 +1,21 @@
+Command:
+curl -i -X POST http://localhost:8080/accounts -H 'Content-Type: application/json' -d '{"name":"Test Account","email":"test.account@example.com","address":"Pune, Maharashtra","phone_number":"9876543210","date_joined":"2026-10-28"}'
+
+Output:
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   294  100   151  100   143  34625  32790 --:--:-- --:--:-- --:--:-- 73500
+HTTP/1.1 201 CREATED
+Server: Werkzeug/3.1.6 Python/3.13.2
+Date: Wed, 28 Oct 2026 12:38:08 GMT
+Content-Type: application/json
+Content-Length: 151
+Access-Control-Allow-Origin: *
+Permissions-Policy: browsing-topics=()
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Security-Policy: default-src 'self'; object-src 'none'
+Referrer-Policy: strict-origin-when-cross-origin
+Connection: close
+
+{"address":"Pune, Maharashtra","date_joined":"2026-10-28","email":"test.account@example.com","id":3,"name":"Test Account","phone_number":"9876543210"}
