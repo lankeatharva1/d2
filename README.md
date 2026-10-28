@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Customer Accounts Microservice
 
 [![Build Status](https://github.com/<your-username>/customer-accounts/actions/workflows/ci-build.yaml/badge.svg)](https://github.com/<your-username>/customer-accounts/actions/workflows/ci-build.yaml)
@@ -34,3 +35,7 @@ flask run
 ```bash
 nosetests
 ```
+=======
+# d2
+Product catalogue project
+>>>>>>> b52b35e2c210c5537ccfb9ee26304bf40917b218
